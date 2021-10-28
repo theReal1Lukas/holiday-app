@@ -2,7 +2,7 @@
 
 1) Clone files to your local environment.
 2) Open terminal and go to client folder.
-3) Install node_modules  :  npm intsall
+3) Install node_modules  :  npm install
 4) Start app : npm start
 
 /////////////// ISSUES ///////////////
