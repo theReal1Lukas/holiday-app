@@ -35,7 +35,7 @@ export default function Holidays({ language }) {
         await axios
           .get("https://api.getfestivo.com/v2/holidays", {
             params: {
-              api_key: process.env.REACT_APP_API_KEY,
+              api_key: "e4964b924d2afb1b0ec2309d79ceaab7",
               country: country.cca3,
               year: 2020,
               language: language || null,
