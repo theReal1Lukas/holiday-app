@@ -1,4 +1,17 @@
+////////////// Start ///////////////
 
+1) Clone files to your local environment.
+2) Open terminal and go to client folder.
+3) Install node_modules  :  npm intall
+4) Start app : npm start
+
+/////////////// ISSUES ///////////////
+
+* Holidays for each country is shown for 2020 year.
+* Not all selected languages will translate holiday names, because holidays API doesn't provide available language list.
+* Coutries API have some issues, for example North Macedonia crashes, when you try to open.
+
+//////////// Asignment /////////////
 ### Problem
 
 I often travel and want to have quick access to the list of holidays from different countries. Ideally, I would like to be able to select a country from the list and be shown a calendar with all holidays for that country. It would be great to be able to have a choice to only display official (public) holidays, as businesses often won't work during those days. One neat feature would be to be able to select a language, in which holiday names are displayed so I can ask the locals about them.
