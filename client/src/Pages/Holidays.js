@@ -2,23 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-calendar/dist/Calendar.css";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  OverlayTrigger,
-  Popover,
-} from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import axios from "axios";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import CalendarEvent_Popover from "../Components/Holiday Components/CalendarEvent_Popover";
 
 export default function Holidays({ language }) {
   const country = JSON.parse(localStorage.getItem("country"));
   const [holidays, setHolidays] = useState(null);
   const localizer = momentLocalizer(moment);
-
-  /////
 
   // add title to holiday arr and find if it's equal to name;
   //  slice start and end dates
@@ -36,8 +28,6 @@ export default function Holidays({ language }) {
         ))
     );
 
-  window.scrollTo(0, 0);
-
   ///get holidays api ///
   useEffect(() => {
     try {
@@ -45,7 +35,7 @@ export default function Holidays({ language }) {
         await axios
           .get("https://api.getfestivo.com/v2/holidays", {
             params: {
-              api_key: "e4964b924d2afb1b0ec2309d79ceaab7",
+              api_key: process.env.REACT_APP_API_KEY,
               country: country.cca3,
               year: 2020,
               language: language || null,
@@ -83,48 +73,6 @@ export default function Holidays({ language }) {
 
   //tooltip
 
-  function Event({ event }) {
-    const popoverClickRootClose = (
-      <Popover
-        style={{
-          marginBottom: "20px",
-          padding: "10px 10px 0px 10px",
-          backgroundColor: "violet",
-          color: "white",
-        }}
-        isOpen={false}
-      >
-        {event.public === true ? (
-          <p>
-            Bussiness Open On :&nbsp;
-            <strong>
-              {event.end.slice(0, 8) +
-                (parseInt(event.end.slice(8, 10)) + parseInt(1))}
-            </strong>
-          </p>
-        ) : (
-          <p>
-            <strong>Working Day</strong>
-          </p>
-        )}
-      </Popover>
-    );
-
-    return (
-      <div>
-        <OverlayTrigger
-          trigger="click"
-          rootClose
-          placement="top"
-          overlay={popoverClickRootClose}
-          style={{ paddingBottom: "30px" }}
-        >
-          <div>{event.title}</div>
-        </OverlayTrigger>
-      </div>
-    );
-  }
-
   return (
     <Container style={{ padding: "100px 0 100px 0" }}>
       <Row>
@@ -142,11 +90,15 @@ export default function Holidays({ language }) {
           </div>
         </Col>
         <Col md={12}>
-          <p style={{ color: "red" }}>
+          <div style={{ color: "red" }}>
             <strong>
-              IMPORTANT! Holidays names doesn't support all languages!
+              <p>IMPORTANT !</p>
             </strong>
-          </p>
+            <ul>
+              <li>Holidays names doesn't support all languages !</li>
+              <li>Holidays are available for 2020 year only !</li>
+            </ul>
+          </div>
 
           <div className="d-flex">
             <div
@@ -193,25 +145,9 @@ export default function Holidays({ language }) {
             endAccessor="end"
             style={{ height: 600, marginTop: 50 }}
             eventPropGetter={changeEventColor}
-            components={{ event: Event }}
+            components={{ event: CalendarEvent_Popover }}
           />
         </Col>
-        {/* <Col md={12}>
-          <h3> {`${country.name.common} Holidays`} </h3>
-          <ul className="d-flex float-left ">
-            {!holidays ? (
-              <p>Loading ...</p>
-            ) : (
-              holidays.map((holiday, index) => (
-                <li
-                  style={{ marginRight: "30px" }}
-                  className="d-flex flex-column "
-                  key={index}
-                >{`${holiday.name} ${holiday.date}`}</li>
-              ))
-            )}
-          </ul>
-        </Col> */}
       </Row>
     </Container>
   );

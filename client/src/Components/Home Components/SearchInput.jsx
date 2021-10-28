@@ -1,4 +1,4 @@
-import { Col, Form, FormControl, Button } from "react-bootstrap";
+import { Col, Form, FormControl } from "react-bootstrap";
 
 export default function SearchInput({ search, setSearch }) {
   return (
